@@ -1,12 +1,12 @@
 import { ChakraProvider } from '@chakra-ui/react';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 import './index.css'; // Tailwind CSS
 
-ReactDOM.render(
-  <ChakraProvider>
-    <App />
-  </ChakraProvider>,
-  document.getElementById('root')
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(
+    <ChakraProvider>
+      <App />
+    </ChakraProvider>
 );

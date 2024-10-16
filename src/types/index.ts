@@ -24,15 +24,27 @@ export interface Contracts {
 }
 
 export interface WebSocketMessage {
-  token: string;
-  close: number;
-  ltp: number;
-  price: number;
-  timestamp: number;
+  ltp: {
+    token: string;
+    ltp: number;
+    timestamp: number;
+  }[];
+}
+
+export interface FormattedStrike {
+  strike: number;
+  callPrice: number;
+  putPrice: number;
+  callToken: string;
+  putToken: string;
 }
 
 export interface OptionStrikes {
   options: {
-    [key: string]: { strike: number[] };
+    [key: string]: {
+      call_close: number[];
+      put_close: number[];
+      strike: number[];
+    };
   };
 }

@@ -13,7 +13,7 @@ export const fetchContracts = async (): Promise<Contracts> => {
   return data;
 };
 
-export const fetchOptionStrikes = async (
+export const fetchOptionChain = async (
   contractName: string
 ): Promise<OptionStrikes> => {
   const response = await fetch(

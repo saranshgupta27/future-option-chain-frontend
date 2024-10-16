@@ -1,3 +1,5 @@
+import { parseISO } from "date-fns";
+
 export function convertKeysToLowercase(obj: any): any {
   if (Array.isArray(obj)) {
     return obj.map((item) => convertKeysToLowercase(item));
@@ -9,4 +11,10 @@ export function convertKeysToLowercase(obj: any): any {
     }, {} as any);
   }
   return obj;
+}
+
+export function sortExpiries(expiries: string[]): string[] {
+  return expiries
+    .slice()
+    .sort((a, b) => parseISO(a).getTime() - parseISO(b).getTime());
 }
