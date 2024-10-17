@@ -15,7 +15,7 @@ const CallPriceCell: React.FC<PriceCellProps> = React.memo(
 
       const timer = setTimeout(() => {
         setBgColor("transparent");
-      }, 1000);
+      }, 700);
 
       return () => clearTimeout(timer);
     }, [price]);
@@ -46,7 +46,7 @@ const PutPriceCell: React.FC<PriceCellProps> = React.memo(
 
       const timer = setTimeout(() => {
         setBgColor("transparent");
-      }, 1000);
+      }, 700);
 
       return () => clearTimeout(timer);
     }, [price]);
