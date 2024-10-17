@@ -19,13 +19,21 @@ const ContractsDropdown: React.FC<ContractsDropdownProps> = React.memo(
       ));
     }, [contracts]);
 
+    const handleChange = React.useCallback(
+      (e: React.ChangeEvent<HTMLSelectElement>) => {
+        onContractChange(e.target.value);
+      },
+      [onContractChange]
+    );
+
     return (
-      <Flex flexDirection={"column"} width={"100%"}>
-        <FormLabel htmlFor="expiry-select">Contract:</FormLabel>
+      <Flex flexDirection="column" width="100%">
+        <FormLabel htmlFor="contract-select">Contract:</FormLabel>
         <Select
-          id="expiry-select"
+          id="contract-select"
           value={selectedContract}
-          onChange={(e) => onContractChange(e.target.value)}
+          onChange={handleChange}
+          autoFocus={false}
         >
           {contractOptions}
         </Select>
@@ -33,5 +41,7 @@ const ContractsDropdown: React.FC<ContractsDropdownProps> = React.memo(
     );
   }
 );
+
+ContractsDropdown.displayName = "ContractsDropdown";
 
 export default ContractsDropdown;
