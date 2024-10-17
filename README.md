@@ -11,6 +11,11 @@ A real-time option chain viewer built with React, TypeScript, and WebSocket inte
 - Type-safe implementation with TypeScript
 - Comprehensive test coverage
 
+
+## UI Screenshot
+!["Screenshot](./ui.png "screenshot")
+
+
 ## Technologies Used
 
 - React 18
