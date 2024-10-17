@@ -1,70 +1,202 @@
-# Getting Started with Create React App
+# Option Chain Viewer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A real-time option chain viewer built with React, TypeScript, and WebSocket integration. This application allows users to view and track option prices for different contracts and expiry dates in real-time.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Real-time price updates via WebSocket connection
+- Support for multiple contracts (e.g., BANKNIFTY, NIFTY)
+- Dynamic expiry date selection
+- Clean and responsive UI with Chakra UI
+- Type-safe implementation with TypeScript
+- Comprehensive test coverage
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- React 18
+- TypeScript
+- Chakra UI
+- WebSocket
+- Jest & React Testing Library
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Prerequisites
 
-### `npm test`
+- Node.js (v14 or higher)
+- npm or yarn
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/option-chain-viewer.git
+cd option-chain-viewer
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Create a `.env` file in the root directory and add your configuration:
+```
+REACT_APP_WS_URL=wss://prices.algotest.xyz/mock/updates
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. Start the development server:
+```bash
+npm start
+# or
+yarn start
+```
 
-### `npm run eject`
+The application will be available at `http://localhost:3000`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Project Structure
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+src/
+├── components/        # React components
+├── hooks/            # Custom React hooks
+├── services/         # API and WebSocket services
+├── types/           # TypeScript interfaces
+└── utils/           # Utility functions
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Key Components
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Hooks
 
-## Learn More
+- `useContracts`: Manages the state for selected contracts and expiry dates
+- `useOptionChain`: Handles fetching and formatting option chain data
+- `useWebSocket`: Manages WebSocket connection for real-time price updates
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Components
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `OptionChain`: Main component that displays the option chain
+- `ContractsDropdown`: Dropdown for selecting different contracts
+- `ExpiryDropdown`: Dropdown for selecting expiry dates
+- `OptionRow`: Individual row component for displaying strike prices and option values
 
-### Code Splitting
+## Testing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The project includes comprehensive test coverage using Jest and React Testing Library. To run the tests:
 
-### Analyzing the Bundle Size
+```bash
+npm test
+# or
+yarn test
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+To run tests with coverage report:
 
-### Making a Progressive Web App
+```bash
+npm test -- --coverage
+# or
+yarn test --coverage
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## API Integration
 
-### Advanced Configuration
+The application integrates with two main endpoints:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+1. Contracts API: Fetches available contracts and their details
+2. Option Chain API: Fetches option chain data for selected contract
+3. WebSocket Connection: Receives real-time price updates
 
-### Deployment
+## WebSocket Messages
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The application expects WebSocket messages in the following format:
 
-### `npm run build` fails to minify
+```typescript
+interface WebSocketMessage {
+  ltp: Array<{
+    token: string;
+    ltp: number;
+  }>;
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## State Management
+
+The application uses React's built-in state management with custom hooks:
+
+1. Global Contract State:
+   - Selected contract
+   - Selected expiry
+   - Available contracts
+   - Loading states
+   - Error states
+
+2. Option Chain State:
+   - Formatted strikes
+   - Active tokens
+   - Real-time price updates
+
+## Performance Considerations
+
+- Memoized callbacks and values to prevent unnecessary rerenders
+- Efficient WebSocket message handling
+- Optimized strike price updates
+- Proper cleanup of WebSocket connections
+
+## Error Handling
+
+The application includes comprehensive error handling for:
+
+- Failed API requests
+- WebSocket connection issues
+- Invalid data formats
+- Network disconnections
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## Code Style
+
+The project uses ESLint and Prettier for code formatting. To format code:
+
+```bash
+npm run lint
+npm run format
+# or
+yarn lint
+yarn format
+```
+
+## Build for Production
+
+To build the application for production:
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+The build artifacts will be stored in the `build/` directory.
+
+
+## Known Issues
+
+- WebSocket reconnection might take up to 5 seconds
+- Some browsers might require CORS configuration for WebSocket connection
+
+## Future Improvements
+
+- Add support for more contract types
+- Implement price history charts
+- Add more customization options for the option chain display
+- Implement user preferences storage
+- Add export functionality for option chain data
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
